@@ -1,4 +1,1 @@
-ECGF
-====
-
-Elliptic curves over galois fields
+some elliptic curves over galois fields shit
