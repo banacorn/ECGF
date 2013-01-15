@@ -4,7 +4,7 @@ type Order = Integer
 data GF = GF Order Integer
 
 instance Show GF where
-    show (GF p n) = show (n `mod` p) ++ " (mod " ++ show p ++ ")"
+    show (GF p n) = show (n `mod` p) -- ++ " (mod " ++ show p ++ ")"
 instance Eq GF where
     (==) (GF p a) (GF _ b) = (a `mod` p) == (b `mod` p)
 
