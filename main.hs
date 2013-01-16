@@ -4,8 +4,6 @@ import GF
 type EC = (Order, GF, GF)
 type Point = (EC, GF, GF)
 
-identity = ((11, GF 11 1, GF 11 6), GF 11 0, GF 11 0)
-
 add :: Point -> Point -> Point
 add p ((11, GF 11 1, GF 11 6), GF 11 0, GF 11 0) = p
 add ((11, GF 11 1, GF 11 6), GF 11 0, GF 11 0) p = p
@@ -30,7 +28,6 @@ double ((p, a, b), x, y)
 
 times :: Point -> Integer -> Point
 times point 1 = point
---times point n = point `add` (point `times` (n - 1))
 times point number
     | even number = double (point `times` (number `div` 2))
     | odd number  = (point `times` (pred number)) `add` point
@@ -38,16 +35,8 @@ times point number
 validate :: Point -> Bool
 validate ((p, a, b), x, y) = y .* y == x .* x .* x .+ x .* a .+ b
 
-baba = map (\n -> case times ((11, GF 11 1, GF 11 6), GF 11 2, GF 11 7) n of ((p, a, b), x, y) -> show n ++ ": " ++ show (x, y)) [1..40]
-
 main = do
     [p, a, b, x, y, n] <- forM [1..6] (const (fmap read getLine)) :: IO [Integer]
     case validate ((p, GF p a, GF p b), GF p x, GF p y) of
         True    -> putStrLn . show $ ((p, GF p a, GF p b), GF p x, GF p y) `times` n
         False   -> putStrLn "wrong"
-
-a = ((11, GF 11 1, GF 11 6), GF 11 2, GF 11 7)
-b = ((11, GF 11 1, GF 11 6), GF 11 2, GF 11 7)
-i = ((11, GF 11 1, GF 11 6), GF 11 0, GF 11 0)
-c = a `add` b
-ai = a `add` i
