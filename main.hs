@@ -38,5 +38,10 @@ validate ((p, a, b), x, y) = y .* y == x .* x .* x .+ x .* a .+ b
 main = do
     [p, a, b, x, y, n] <- forM [1..6] (const (fmap read getLine)) :: IO [Integer]
     case validate ((p, GF p a, GF p b), GF p x, GF p y) of
-        True    -> putStrLn . show $ ((p, GF p a, GF p b), GF p x, GF p y) `times` n
+        True    -> case ((p, GF p a, GF p b), GF p x, GF p y) `times` n of 
+                        ((_, _, _), GF _ 0, GF _ 0) -> putStrLn "infinity"
+                        ((_, _, _), x, y) -> do
+                            putStrLn $ show x 
+                            putStrLn $ show y
         False   -> putStrLn "wrong"
+
